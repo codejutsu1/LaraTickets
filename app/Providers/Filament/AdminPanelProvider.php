@@ -9,7 +9,6 @@ use Filament\PanelProvider;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Http\Middleware\Authenticate;
-use App\Http\Middleware\VerifyRoleMiddleware;
 use Illuminate\Session\Middleware\StartSession;
 use App\Http\Middleware\VerifyIsAdminMiddleware;
 use Illuminate\Cookie\Middleware\EncryptCookies;

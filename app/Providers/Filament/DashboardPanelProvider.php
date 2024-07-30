@@ -35,6 +35,12 @@ class DashboardPanelProvider extends PanelProvider
                         ->icon('heroicon-o-cog-6-tooth')
                         ->url('/admin')
                         ->visible(fn (): bool => auth()->user()->isAdmin()),
+
+                MenuItem::make()
+                        ->label('Agent')
+                        ->icon('heroicon-o-cog-6-tooth')
+                        ->url('/agent')
+                        ->visible(fn (): bool => auth()->user()->isAgent()),
             ])
             ->colors([
                 'primary' => Color::Amber,

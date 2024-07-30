@@ -6,10 +6,9 @@ use Closure;
 use App\Enum\UserRole;
 use Illuminate\Http\Request;
 use Filament\Facades\Filament;
-use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Response;
 
-class VerifyRoleMiddleware
+class VerifyIsAgentMiddleware
 {
     /**
      * Handle an incoming request.
@@ -20,24 +19,11 @@ class VerifyRoleMiddleware
     {
         $user = Filament::auth()->user();
 
-        $excludedRoutes = [
-            'admin/logout',
-            'agent/logout',
-        ];
-
-        if (in_array($request->path(), $excludedRoutes)) {
-            return $next($request);
-        }
-
         if ($user) {
             $role = UserRole::fromId($user->role_id);
 
-            if ($role === UserRole::ADMIN && $request->path() === 'admin') {
+            if ($role === UserRole::AGENT || $role === UserRole::ADMIN) {
                 return $next($request);
-            }
-
-            if ($role === UserRole::AGENT && $request->path() !== 'agent') {
-                return Redirect::to('/agent');
             }
         }
         
