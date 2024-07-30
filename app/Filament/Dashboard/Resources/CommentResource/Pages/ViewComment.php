@@ -4,9 +4,11 @@ namespace App\Filament\Dashboard\Resources\CommentResource\Pages;
 
 use Filament\Actions;
 use App\Models\Comment;
+use App\Mail\TicketReplied;
 use Filament\Actions\Action;
 use Filament\Infolists\Infolist;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Mail;
 use Filament\Support\Enums\ActionSize;
 use Filament\Support\Enums\FontWeight;
 use Filament\Notifications\Notification;
@@ -47,12 +49,22 @@ class ViewComment extends ViewRecord
                $data['user_id'] = auth()->id();
                $data['ticket_id'] = $this->record->id;
 
-               Comment::create($data);
+            //    Comment::create($data);
 
                Notification::make()
                             ->title('Comment successful')
                             ->success()
                             ->send();
+
+                if(auth()->user()->isAgent()){
+                    $ticketId = $this->record->tracking_id;
+                    $subject = $this->record->subject;
+                    $user = $this->record->user;
+
+                    $message = $data['message'];
+
+                    Mail::to($this->record->user)->send(new TicketReplied($ticketId, $subject, $user, $message));
+                }
             });
     } 
     

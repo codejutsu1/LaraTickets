@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
+use Filament\Notifications\Notification;
 use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -42,6 +43,7 @@ class TicketResource extends Resource
                 ActionGroup::make([
                     Action::make('attendTicket')
                             ->label('Attend')
+                            ->visible(fn(Ticket $ticket): bool => $ticket->is_open)
                             ->icon('heroicon-o-chat-bubble-left-ellipsis')
                             ->url(function(Ticket $record){
                                 $link = route('filament.dashboard.resources.comments.comment', ['record' => $record->tracking_id]);
@@ -52,7 +54,16 @@ class TicketResource extends Resource
 
                     Action::make('markedAsAttended')
                             ->label('Marked As Attended')
-                            ->icon('heroicon-o-check-circle'),
+                            ->visible(fn(Ticket $ticket): bool => $ticket->is_open)
+                            ->icon('heroicon-o-check-circle')
+                            ->action(function(Ticket $record) {
+                                $record->update(['is_open' => 0]);
+
+                                Notification::make()
+                                            ->title('Ticket Marked as Attended')
+                                            ->success()
+                                            ->send();
+                            }),
                 ]),
                 // Tables\Actions\EditAction::make(),
             ])

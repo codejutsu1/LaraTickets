@@ -121,10 +121,10 @@ class TicketResource extends Resource
                             ->label('Opened')
                             ->boolean(),
 
-                TextColumn::make('agent.name')
-                            ->label('Assigned Agent')
-                            ->searchable()
-                            ->default('None'),
+                // TextColumn::make('agent.name')
+                //             ->label('Assigned Agent')
+                //             ->searchable()
+                //             ->default('None'),
 
                 TextColumn::make('created_at')
                             ->dateTime()
