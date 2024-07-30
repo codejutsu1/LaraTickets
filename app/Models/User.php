@@ -80,4 +80,8 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(User::class);
     }
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

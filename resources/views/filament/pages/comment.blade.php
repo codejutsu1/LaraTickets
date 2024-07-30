@@ -32,9 +32,9 @@
         {{ $this->ticketInfolist }}
     </div>
 
-   {{-- <div class="post">
+    <div class="post">
         {{ $this->commentInfolist }}
-    </div> --}}
+    </div> 
 
     <div>
         <x-filament-actions::modals />
