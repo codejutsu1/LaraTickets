@@ -10,6 +10,12 @@ enum UserRole: int
 
     public static function fromId(int $id): ?self
     {
-        return array_search($id, array_column(self::cases(), 'value'), true) ?: null;
+        foreach (self::cases() as $case) {
+            if ($case->value === $id) {
+                return $case;
+            }
+        }
+        
+        return null;
     }
 }

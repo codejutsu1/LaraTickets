@@ -20,18 +20,27 @@ class VerifyRoleMiddleware
     {
         $user = Filament::auth()->user();
 
+        $excludedRoutes = [
+            'admin/logout',
+            'agent/logout',
+        ];
+
+        if (in_array($request->path(), $excludedRoutes)) {
+            return $next($request);
+        }
+
         if ($user) {
             $role = UserRole::fromId($user->role_id);
 
-            if ($role === UserRole::USER) {
-                return Redirect::to('/dashboard');
+            if ($role === UserRole::ADMIN) {
+                return $request->path() == 'admin' ? $next($request) : Redirect::to('/admin');
             }
 
-            if ($role === UserRole::AGENT) {
+            if ($role === UserRole::AGENT && $request->path() !== 'agent') {
                 return Redirect::to('/agent');
             }
         }
         
-        return $next($request);
+        return redirect('/dashboard');
     }
 }
