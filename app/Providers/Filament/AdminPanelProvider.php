@@ -6,10 +6,12 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Http\Middleware\Authenticate;
 use App\Http\Middleware\VerifyRoleMiddleware;
 use Illuminate\Session\Middleware\StartSession;
+use App\Http\Middleware\VerifyIsAdminMiddleware;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
@@ -26,6 +28,12 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->id('admin')
             ->path('admin')
+            ->userMenuItems([
+                MenuItem::make()
+                        ->label('Dashboard')
+                        ->icon('heroicon-o-cog-6-tooth')
+                        ->url('/dashboard')
+            ])
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -49,7 +57,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                VerifyRoleMiddleware::class,
+                VerifyIsAdminMiddleware::class,
             ]);
     }
 }

@@ -54,4 +54,9 @@ class User extends Authenticatable implements FilamentUser
         return true;
         // return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->role_id === 1 ? true: false;
+    }
 }
