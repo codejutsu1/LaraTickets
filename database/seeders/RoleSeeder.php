@@ -15,13 +15,13 @@ class RoleSeeder extends Seeder
     {
         $roles = [
             [
-                'name' => 'admin',
+                'name' => 'Admin',
             ],
             [
-                'name' => 'agent'
+                'name' => 'Agent'
             ],
             [
-                'name' => 'user'
+                'name' => 'User'
             ],
         ];
 
