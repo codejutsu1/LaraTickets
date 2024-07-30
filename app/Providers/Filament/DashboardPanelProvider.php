@@ -30,6 +30,8 @@ class DashboardPanelProvider extends PanelProvider
             ->path('dashboard')
             ->profile()
             ->login()
+            ->passwordReset()
+            ->emailVerification() 
             ->registration()
             ->userMenuItems([
                 'profile' => MenuItem::make()->url(fn (): string => EditProfile::getUrl()),

@@ -3,6 +3,7 @@
 namespace App\Filament\Dashboard\Resources\CommentResource\Pages;
 
 use Filament\Actions;
+use App\Models\Ticket;
 use App\Models\Comment;
 use App\Mail\TicketReplied;
 use Filament\Actions\Action;
@@ -25,6 +26,7 @@ class ViewComment extends ViewRecord
     protected static string $resource = CommentResource::class;
 
     protected static string $view = 'filament.pages.comment';
+
 
     public function getHeader(): ?View
     {

@@ -106,6 +106,12 @@ class TicketResource extends Resource
                             ->sortable()
                             ->badge(),
 
+
+            TextColumn::make('user.name')
+                            ->searchable()
+                            ->sortable()
+                            ->visible(auth()->user()->isAgent()),
+
                 TextColumn::make('subject')
                             ->searchable(),
 
