@@ -12,6 +12,7 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Dashboard\Resources\CommentResource;
 use App\Filament\Support\Resources\TicketResource\Pages;
 use App\Filament\Support\Resources\TicketResource\RelationManagers;
 use App\Filament\Dashboard\Resources\TicketResource as UserTicketResource;
@@ -42,7 +43,11 @@ class TicketResource extends Resource
                     Action::make('attendTicket')
                             ->label('Attend')
                             ->icon('heroicon-o-chat-bubble-left-ellipsis')
-                            ->url('https://google.com')
+                            ->url(function(Ticket $record){
+                                $link = route('filament.dashboard.resources.comments.comment', ['record' => $record->tracking_id]);
+                                
+                                return $link;
+                            })
                             ->openUrlInNewTab(),
 
                     Action::make('markedAsAttended')

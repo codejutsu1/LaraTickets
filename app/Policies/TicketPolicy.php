@@ -21,7 +21,8 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket): bool
     {
-        return $user->id === $ticket->user_id ? true : false;
+        return true;
+        // return $user->id === $ticket->user_id ? true : false;
     }
 
     /**
@@ -30,6 +31,7 @@ class TicketPolicy
     public function create(User $user): bool
     {
         return $user->isUser();
+        
     }
 
     /**
