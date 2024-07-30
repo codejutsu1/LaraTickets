@@ -70,4 +70,9 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
 }
