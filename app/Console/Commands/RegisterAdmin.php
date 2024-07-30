@@ -46,6 +46,7 @@ class RegisterAdmin extends Command
                 'email' => $email,
                 'password' => $hashedPassword,
                 'role_id' => 1,
+                'email_verified_at' => now(),
             ]);
 
             $this->info('Admin created successfully.');

@@ -33,6 +33,12 @@ class SupportPanelProvider extends PanelProvider
                 'profile' => MenuItem::make()->url(fn (): string => route('filament.dashboard.pages.edit-profile')),
 
                 MenuItem::make()
+                        ->label('Admin Dashboard')
+                        ->icon('heroicon-o-cog-6-tooth')
+                        ->url('/admin')
+                        ->visible(fn (): bool => auth()->user()->isAdmin()),
+                        
+                MenuItem::make()
                         ->label('Dashboard')
                         ->icon('heroicon-o-cog-6-tooth')
                         ->url('/dashboard')

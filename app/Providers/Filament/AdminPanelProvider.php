@@ -27,6 +27,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->id('admin')
             ->path('admin')
+            ->profile()
             ->userMenuItems([
                 'profile' => MenuItem::make()->url(fn (): string => route('filament.dashboard.pages.edit-profile')),
                 MenuItem::make()
