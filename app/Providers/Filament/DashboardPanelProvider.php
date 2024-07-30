@@ -9,6 +9,7 @@ use Filament\PanelProvider;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Http\Middleware\Authenticate;
+use App\Filament\Dashboard\Pages\EditProfile;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Routing\Middleware\SubstituteBindings;
@@ -27,17 +28,20 @@ class DashboardPanelProvider extends PanelProvider
             ->default()
             ->id('dashboard')
             ->path('dashboard')
+            ->profile()
             ->login()
             ->registration()
             ->userMenuItems([
+                'profile' => MenuItem::make()->url(fn (): string => EditProfile::getUrl()),
+
                 MenuItem::make()
-                        ->label('Admin')
+                        ->label('Admin Dashboard')
                         ->icon('heroicon-o-cog-6-tooth')
                         ->url('/admin')
                         ->visible(fn (): bool => auth()->user()->isAdmin()),
 
                 MenuItem::make()
-                        ->label('Agent')
+                        ->label('Agent Dashboard')
                         ->icon('heroicon-o-cog-6-tooth')
                         ->url('/agent')
                         ->visible(fn (): bool => auth()->user()->isAgent()),

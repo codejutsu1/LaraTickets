@@ -28,6 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->userMenuItems([
+                'profile' => MenuItem::make()->url(fn (): string => route('filament.dashboard.pages.edit-profile')),
                 MenuItem::make()
                         ->label('Dashboard')
                         ->icon('heroicon-o-cog-6-tooth')

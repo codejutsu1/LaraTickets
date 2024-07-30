@@ -9,6 +9,7 @@ use Filament\PanelProvider;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Http\Middleware\Authenticate;
+use App\Filament\Dashboard\Pages\EditProfile;
 use Illuminate\Session\Middleware\StartSession;
 use App\Http\Middleware\VerifyIsAgentMiddleware;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -27,7 +28,10 @@ class SupportPanelProvider extends PanelProvider
         return $panel
             ->id('support')
             ->path('agent')
+            ->profile()
             ->userMenuItems([
+                'profile' => MenuItem::make()->url(fn (): string => route('filament.dashboard.pages.edit-profile')),
+
                 MenuItem::make()
                         ->label('Dashboard')
                         ->icon('heroicon-o-cog-6-tooth')
