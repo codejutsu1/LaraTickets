@@ -20,6 +20,11 @@ class Ticket extends Model
         'agent_id',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'tracking_id'; 
+    }
+
     public function agent(): BelongsTo
     {
         return $this->belongsTo(User::class, 'agent_id');

@@ -66,6 +66,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->role_id === 1 || $this->role_id === 2 ? true: false;
     }
 
+    public function isUser(): bool
+    {
+        return $this->role_id === 3  ? true: false;
+    }
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
